@@ -1,0 +1,79 @@
+type Actor {
+  id: Int!
+  name: String!
+}
+
+input ActorInput {
+  id: Int!
+  name: String!
+}
+
+type ActorDoc {
+  id: Int!
+  name: String!
+}
+
+input ActorUpdateInput {
+  name: String
+}
+
+type Movie {
+  id: Int!
+  title: String!
+  genres: [String!]
+  description: String
+  director: String
+  actors: [Actor!]
+  year: Int
+  runtime: Int
+  rating: Float
+  votes: Int
+  revenue: Float
+}
+
+input MovieInput {
+  id: Int!
+  title: String!
+  genres: [String!]
+  description: String
+  director: String
+  actors: [ActorInput!]
+  year: Int
+  runtime: Int
+  rating: Float
+  votes: Int
+  revenue: Float
+}
+
+input MovieUpdateInput {
+  title: String
+  genres: [String!]
+  description: String
+  director: String
+  actors: [ActorInput!]
+  year: Int
+  runtime: Int
+  rating: Float
+  votes: Int
+  revenue: Float
+}
+
+type Query {
+  getAllMovies: [Movie!]!
+  getMovieById(id: Int!): Movie
+  searchMoviesByTitle(titleContains: String!): [Movie!]!
+
+  getAllActors: [ActorDoc!]!
+  getActorById(id: Int!): ActorDoc
+  searchActorsByName(nameContains: String!): [ActorDoc!]!
+}
+
+type Mutation {
+  createMovie(movie: MovieInput!): Movie!
+  updateMovie(id: Int!, update: MovieUpdateInput!): Movie!
+  deleteMovie(id: Int!): String!
+
+  createActor(actor: ActorInput!): ActorDoc!
+  updateActor(id: Int!, update: ActorUpdateInput!): ActorDoc!
+  deleteActor(id: Int!): String!
+}
